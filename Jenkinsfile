@@ -13,12 +13,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                // Checkout the code from the repository
-                git 'https://github.com/031-Avish/jenkins-client-server'
-            }
-        }
+        // stage('Checkout Code') {
+        //     steps {
+        //         // Checkout the code from the repository
+        //         git 'https://github.com/031-Avish/jenkins-client-server'
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
