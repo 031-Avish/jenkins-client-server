@@ -4,6 +4,11 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'avish031/dvna'
         MYSQL_IMAGE = 'mysql:5.7' 
+        MYSQL_USER='dvna'
+        MYSQL_DATABASE='dvna'
+        MYSQL_PASSWORD='passw0rd'
+        MYSQL_RANDOM_ROOT_PASSWORD='yes'
+
         // KUBECONFIG = credentials('kubeconfig') // Add kubeconfig as Jenkins credential
     }
 
