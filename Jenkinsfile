@@ -59,7 +59,7 @@ pipeline {
                     """
                     sh """
                     export PATH=\$HOME/bin:\$PATH
-                    kubectl get pod
+                    kubectl apply -f k8s/secret.yaml
                     kubectl apply -f k8s/deployment.yaml
                     """
                 

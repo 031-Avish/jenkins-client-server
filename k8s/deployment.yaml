@@ -14,18 +14,32 @@ spec:
     spec:
       containers:
         - name: dvna-app
-          image: avish031/avishrepo:${BUILD_NUMBER}
+          image: "avish031/avishrepo:${BUILD_NUMBER}"  # BUILD_NUMBER is provided from the environment
           ports:
             - containerPort: 9090
           env:
             - name: MYSQL_HOST
               value: mysql-db
             - name: MYSQL_USER
-              value: ${MYSQL_USER}
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets  # Reference the secret
+                  key: MYSQL_USER
             - name: MYSQL_PASSWORD
-              value: ${MYSQL_PASSWORD}
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: MYSQL_PASSWORD
             - name: MYSQL_DATABASE
-              value: ${MYSQL_DATABASE}
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: MYSQL_DATABASE
+            - name: BUILD_NUMBER
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: BUILD_NUMBER
 ---
 apiVersion: v1
 kind: Service
