@@ -56,8 +56,6 @@ pipeline {
                         chmod +x kubectl
                         mkdir -p \$HOME/bin
                         mv kubectl \$HOME/bin/
-                        echo 'export PATH=\$HOME/bin:\$PATH' >> ~/.bashrc
-                        . ~/.bashrc
                     """
                     sh """
                     kubectl get pod
