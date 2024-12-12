@@ -53,8 +53,11 @@ pipeline {
                     sh 'mkdir hello'
                     sh """
                     curl -LO https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
-                    chmod +x kubectl
-                    mv kubectl /usr/local/bin/
+                        chmod +x kubectl
+                        mkdir -p \$HOME/bin
+                        mv kubectl \$HOME/bin/
+                        echo 'export PATH=\$HOME/bin:\$PATH' >> ~/.bashrc
+                        source ~/.bashrc
                     """
                     sh """
                     kubectl get pod
