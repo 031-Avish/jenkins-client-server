@@ -49,11 +49,13 @@ pipeline {
                 container('kubectl') {  
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
+                    sh 'echo hello world'
+                    sh """
                     
-                    sh 'mkdir hello '
-                    sh 'echo "$KUBECONFIG" > ~/.kube/config'
-                    sh 'kubectl get pod'
-                    sh 'kubectl apply -f k8s/deployment.yaml'
+                    echo ${KUBECONFIG} > ~/.kube/config
+                    kubectl get pod
+                    kubectl apply -f k8s/deployment.yaml
+                    """
                 }
             }
         }
