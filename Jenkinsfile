@@ -25,7 +25,7 @@ pipeline {
 
         stage('check agent')
         {
-            agent { label 'jenkins-slave' }
+            agent { label 'jenkins-jenkins-agent' }
             steps{
                 echo "working"
                 echo "Running on agent: ${env.NODE_NAME}"
