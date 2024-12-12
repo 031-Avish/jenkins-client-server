@@ -8,7 +8,8 @@ pipeline {
         MYSQL_DATABASE='dvna'
         MYSQL_PASSWORD='passw0rd'
         MYSQL_RANDOM_ROOT_PASSWORD='yes'
-
+        DOCKERHUB_CREDENTIALS= credentials('dockerhubcred')     
+}
         // KUBECONFIG = credentials('kubeconfig') // Add kubeconfig as Jenkins credential
     }
     tools{
@@ -23,10 +24,11 @@ pipeline {
         // }
         stage('Push Docker Image to Docker Hub') {
             steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcred') {
-                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
-                    }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
+	            echo 'Login Completed' 
+
+                sh 'sudo docker push avish031/avishrepo:$BUILD_NUMBER'          
+                echo 'Push Image Completed' 
                 }
             }
         }
