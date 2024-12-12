@@ -11,7 +11,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS= credentials('dockerhubcred')     
 }
         // KUBECONFIG = credentials('kubeconfig') // Add kubeconfig as Jenkins credential
-    }
+    
     tools{
         dockerTool 'docker'
     }
