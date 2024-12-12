@@ -8,7 +8,8 @@ pipeline {
         MYSQL_DATABASE='dvna'
         MYSQL_PASSWORD='passw0rd'
         MYSQL_RANDOM_ROOT_PASSWORD='yes'
-        DOCKERHUB_CREDENTIALS= credentials('dockerhubcred')     
+        DOCKERHUB_CREDENTIALS= credentials('dockerhubcred')
+        KUBECONFIG = credential(kubeconfig)     
 }
         // KUBECONFIG = credentials('kubeconfig') // Add kubeconfig as Jenkins credential
     
@@ -48,6 +49,7 @@ pipeline {
                 container('kubectl') {  
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
+                    sh 'echo "$KUBECONFIG" > ~/.kube/config'
                     sh 'kubectl get pod'
                     sh 'kubectl apply -f k8s/deployment.yaml'
                 }
