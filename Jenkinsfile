@@ -11,8 +11,9 @@ pipeline {
 
         // KUBECONFIG = credentials('kubeconfig') // Add kubeconfig as Jenkins credential
     }
-    
-
+    tools{
+        dockerTool 'docker'
+    }
     stages {
         // stage('Checkout Code') {
         //     steps {
