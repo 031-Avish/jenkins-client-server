@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'avish031/dvna'
+        DOCKER_IMAGE = 'avish031/avishrepo'
         MYSQL_IMAGE = 'mysql:5.7' 
         MYSQL_USER='dvna'
         MYSQL_DATABASE='dvna'

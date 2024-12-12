@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dvna-app
-          image: avish031/dvna:${BUILD_NUMBER}
+          image: avish031/avishrepo:${BUILD_NUMBER}
           ports:
             - containerPort: 9090
           env:
