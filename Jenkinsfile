@@ -22,6 +22,16 @@ pipeline {
         //         git 'https://github.com/031-Avish/jenkins-client-server'
         //     }
         // }
+
+        stage('Build Docker Image') {
+            steps {
+                sh """
+                
+                docker build -t avish031/avishrepo:${BUILD_NUMBER} .
+                """
+            }
+        }
+
         stage('Push Docker Image to Docker Hub') {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
@@ -30,21 +40,8 @@ pipeline {
                 sh 'sudo docker push avish031/avishrepo:$BUILD_NUMBER'          
                 echo 'Push Image Completed' 
                 }
-            }
-        
-        
-        stage('Build Docker Image') {
-            steps {
-                sh """
-                
-                docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .
-                """
-            }
         }
-
         
-
-
         stage('check agent')
         {
             agent { label 'jenkins-slave' }
