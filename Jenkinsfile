@@ -31,7 +31,7 @@ pipeline {
                 echo 'Push Image Completed' 
                 }
             }
-        }
+        
         
         stage('Build Docker Image') {
             steps {
