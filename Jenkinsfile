@@ -34,12 +34,14 @@ pipeline {
 
         stage('Push Docker Image to Docker Hub') {
             steps {
-                
-                withDockerRegistry([credentialsId: 'dockerhubcred', url: '']) {
-                    sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcred') {
+                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                    }
                 }
             }
         }
+
 
         stage('check agent')
         {
