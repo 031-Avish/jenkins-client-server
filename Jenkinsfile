@@ -9,7 +9,7 @@ pipeline {
         MYSQL_PASSWORD='passw0rd'
         MYSQL_RANDOM_ROOT_PASSWORD='yes'
         DOCKERHUB_CREDENTIALS= credentials('dockerhubcred')
-        KUBECONFIG = credential(kubeconfig)     
+        KUBECONFIG = credentials(kubeconfig)     
 }
         // KUBECONFIG = credentials('kubeconfig') // Add kubeconfig as Jenkins credential
     
