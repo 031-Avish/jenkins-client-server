@@ -23,24 +23,24 @@ pipeline {
         //     }
         // }
 
-        stage('Build Docker Image') {
-            steps {
-                sh """
+        // stage('Build Docker Image') {
+        //     steps {
+        //         sh """
                 
-                docker build -t avish031/avishrepo:${BUILD_NUMBER} .
-                """
-            }
-        }
+        //         docker build -t avish031/avishrepo:${BUILD_NUMBER} .
+        //         """
+        //     }
+        // }
 
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
-	            echo 'Login Completed' 
+        // stage('Push Docker Image to Docker Hub') {
+        //     steps {
+        //         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
+	    //         echo 'Login Completed' 
 
-                sh 'sudo docker push avish031/avishrepo:$BUILD_NUMBER'          
-                echo 'Push Image Completed' 
-                }
-        }
+        //         sh 'sudo docker push avish031/avishrepo:$BUILD_NUMBER'          
+        //         echo 'Push Image Completed' 
+        //         }
+        // }
         
         stage('check agent')
         {
@@ -48,6 +48,7 @@ pipeline {
             steps{
                 echo "working"
                 echo "Running on agent: ${env.NODE_NAME}"
+                sh 'kubectl get pods -n jenkins'
             }
         }
 
