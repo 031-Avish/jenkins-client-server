@@ -28,7 +28,6 @@ pipeline {
                 sh """
                 
                 docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .
-                docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:${IMAGE_TAG}
                 """
             }
         }
