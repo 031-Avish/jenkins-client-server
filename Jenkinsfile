@@ -45,11 +45,11 @@ pipeline {
         stage('check agent') {
             agent { label 'jenkins-slave' }  
             steps {
-                container('kubectl') {  
+                
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
                     sh 'kubectl get pods -n jenkins'
-                }
+            
             }
         }
 
