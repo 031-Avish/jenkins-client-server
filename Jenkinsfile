@@ -58,6 +58,7 @@ pipeline {
                         mv kubectl \$HOME/bin/
                     """
                     sh """
+                    export PATH=\$HOME/bin:\$PATH
                     kubectl get pod
                     kubectl apply -f k8s/deployment.yaml
                     """
