@@ -22,18 +22,19 @@ pipeline {
         //     }
         // }
 
-        // stage('check agent')
-        // {
-        //     agent { label 'jenkins-jenkins-agent' }
-        //     steps{
-        //         echo "working"
-        //         echo "Running on agent: ${env.NODE_NAME}"
-        //     }
-        // }
+        stage('check agent')
+        {
+            agent { label 'jenkins-slave' }
+            steps{
+                echo "working"
+                echo "Running on agent: ${env.NODE_NAME}"
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
                 sh """
+                
                 docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .
                 """
             }
