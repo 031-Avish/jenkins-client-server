@@ -46,17 +46,21 @@ pipeline {
         stage('check agent') {
             agent { label 'jenkins-slave' }  // Specify the agent label for this stage
             steps {
-                container('kubectl') {  
+                
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
                     sh 'echo hello world'
                     sh 'mkdir hello'
                     sh """
-                    
+                    curl -LO https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
+                    chmod +x kubectl
+                    sudo mv kubectl /usr/local/bin/
+                    """
+                    sh """
                     kubectl get pod
                     kubectl apply -f k8s/deployment.yaml
                     """
-                }
+                
             }
         }
 
