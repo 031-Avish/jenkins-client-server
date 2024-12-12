@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvna-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dvna-app
+  template:
+    metadata:
+      labels:
+        app: dvna-app
+    spec:
+      containers:
+        - name: dvna-app
+          image: avish031/dvna:${BUILD_NUMBER}
+          ports:
+            - containerPort: 9090
+          env:
+            - name: MYSQL_HOST
+              value: mysql-db
+            - name: MYSQL_USER
+              value: ${MYSQL_USER}
+            - name: MYSQL_PASSWORD
+              value: ${MYSQL_PASSWORD}
+            - name: MYSQL_DATABASE
+              value: ${MYSQL_DATABASE}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dvna-app
+spec:
+  selector:
+    app: dvna-app
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+  type: ClusterIP

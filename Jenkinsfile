@@ -48,7 +48,7 @@ pipeline {
                 container('kubectl') {  
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
-                    sh 'kubectl get pods -n jenkins'
+                    sh 'kubectl apply -f k8s/deployment.yaml'
                 }
             }
         }
