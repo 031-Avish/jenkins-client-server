@@ -21,7 +21,15 @@ pipeline {
         //         git 'https://github.com/031-Avish/jenkins-client-server'
         //     }
         // }
-
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcred') {
+                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
+                    }
+                }
+            }
+        }
         
         stage('Build Docker Image') {
             steps {
@@ -32,15 +40,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhubcred') {
-                        sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
-                    }
-                }
-            }
-        }
+        
 
 
         stage('check agent')
