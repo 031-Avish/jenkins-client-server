@@ -46,17 +46,18 @@ pipeline {
         stage('check agent') {
             agent { label 'jenkins-slave' }  // Specify the agent label for this stage
             steps {
-                container('kubectl') {  
+                // container('kubectl') {  
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
                     sh 'echo hello world'
+                    sh 'mkdir hello'
                     sh """
                     
                     echo ${KUBECONFIG} > ~/.kube/config
                     kubectl get pod
                     kubectl apply -f k8s/deployment.yaml
                     """
-                }
+                // }
             }
         }
 
