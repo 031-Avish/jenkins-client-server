@@ -53,7 +53,6 @@ pipeline {
                     sh 'mkdir hello'
                     sh """
                     
-                    echo ${KUBECONFIG} > ~/.kube/config
                     kubectl get pod
                     kubectl apply -f k8s/deployment.yaml
                     """
