@@ -49,7 +49,7 @@ pipeline {
                 container('kubectl') {  
                     echo "working"
                     echo "Running on agent: ${env.NODE_NAME}"
-                    mkdir hello
+                    
                     sh 'mkdir hello '
                     sh 'echo "$KUBECONFIG" > ~/.kube/config'
                     sh 'kubectl get pod'
