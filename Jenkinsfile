@@ -59,16 +59,16 @@ pipeline {
                     """
                     sh """
                     export PATH=\$HOME/bin:\$PATH
-                    kubectl delete secret app-secrets
-                    kubectl create secret generic app-secrets \\
-                        --from-literal=MYSQL_USER=${MYSQL_USER} \\
-                        --from-literal=MYSQL_PASSWORD=${MYSQL_PASSWORD} \\
-                        --from-literal=MYSQL_DATABASE=${MYSQL_DATABASE} \\
-                        --from-literal=BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i 's|image: avish031/avishrepo:.|image: avish031/avishrepo:${BUILD_NUMBER}|' k8s/deployment.yaml
                     kubectl apply -f k8s/deployment.yaml
                     """
                     
-                
+                // kubectl delete secret app-secrets
+                //     kubectl create secret generic app-secrets \\
+                //         --from-literal=MYSQL_USER=${MYSQL_USER} \\
+                //         --from-literal=MYSQL_PASSWORD=${MYSQL_PASSWORD} \\
+                //         --from-literal=MYSQL_DATABASE=${MYSQL_DATABASE} \\
+                //         --from-literal=BUILD_NUMBER=${BUILD_NUMBER}
             }
         }
 
