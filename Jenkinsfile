@@ -59,6 +59,7 @@ pipeline {
                     """
                     sh """
                     export PATH=\$HOME/bin:\$PATH
+                    kubectl delete secret app-secrets
                     kubectl create secret generic app-secrets \\
                         --from-literal=MYSQL_USER=${MYSQL_USER} \\
                         --from-literal=MYSQL_PASSWORD=${MYSQL_PASSWORD} \\
