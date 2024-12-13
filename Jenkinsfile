@@ -59,7 +59,13 @@ pipeline {
                     """
                     sh """
                     export PATH=\$HOME/bin:\$PATH
-                    kubectl apply -f k8s/secret.yaml
+                    kubectl create secret generic app-secrets \\
+                        --from-literal=MYSQL_USER=${MYSQL_USER} \\
+                        --from-literal=MYSQL_PASSWORD=${MYSQL_PASSWORD} \\
+                        --from-literal=MYSQL_DATABASE=${MYSQL_DATABASE} \\
+                        --from-literal=BUILD_NUMBER=${BUILD_NUMBER}
+                    """
+                    sh """
                     kubectl apply -f k8s/deployment.yaml
                     """
                 
