@@ -24,24 +24,24 @@ pipeline {
         //     }
         // }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         sh """
+        stage('Build Docker Image') {
+            steps {
+                sh """
                 
-        //         docker build -t avish031/avishrepo:${BUILD_NUMBER} .
-        //         """
-        //     }
-        // }
+                docker build -t avish031/avishrepo:${BUILD_NUMBER} .
+                """
+            }
+        }
 
-        // stage('Push Docker Image to Docker Hub') {
-        //     steps {
-        //         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
-	    //         echo 'Login Completed' 
+        stage('Push Docker Image to Docker Hub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
+	            echo 'Login Completed' 
 
-        //         sh 'sudo docker push avish031/avishrepo:$BUILD_NUMBER'          
-        //         echo 'Push Image Completed' 
-        //         }
-        // }
+                sh 'sudo docker push avish031/avishrepo:$BUILD_NUMBER'          
+                echo 'Push Image Completed' 
+                }
+        }
         
         stage('check agent') {
             agent { label 'jenkins-slave' }  // Specify the agent label for this stage
@@ -64,10 +64,9 @@ pipeline {
                         --from-literal=MYSQL_PASSWORD=${MYSQL_PASSWORD} \\
                         --from-literal=MYSQL_DATABASE=${MYSQL_DATABASE} \\
                         --from-literal=BUILD_NUMBER=${BUILD_NUMBER}
-                    """
-                    sh """
                     kubectl apply -f k8s/deployment.yaml
                     """
+                    
                 
             }
         }
